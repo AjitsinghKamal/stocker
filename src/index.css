@@ -14,7 +14,6 @@ html {
 *:focus {
     outline: 0;
     text-decoration: none;
-    color: inherit;
 }
 
 a {
@@ -22,7 +21,7 @@ a {
 }
 
 ul {
-  list-style: none;
+    list-style: none;
 }
 
 * {
@@ -32,10 +31,11 @@ ul {
 
 body {
     font-size: 1rem;
-    font-family: sans-serif;
+    font-family: 'Lato', sans-serif;
     font-variant-ligatures: none;
     text-rendering: optimizeLegibility;
     -moz-osx-font-smoothing: grayscale;
     font-smoothing: antialiased;
     -webkit-font-smoothing: antialiased;
+    background: linear-gradient(45deg, #30cfd0 0%, #330867 100%);
 }
