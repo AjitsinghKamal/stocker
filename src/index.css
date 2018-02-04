@@ -18,6 +18,7 @@ html {
 
 a {
     text-decoration: none;
+    color: inherit;
 }
 
 ul {
@@ -38,4 +39,31 @@ body {
     font-smoothing: antialiased;
     -webkit-font-smoothing: antialiased;
     background: linear-gradient(45deg, #30cfd0 0%, #330867 100%);
+}
+
+#loader {
+    z-index: 0;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    stroke: #fff;
+    stroke-width: 3;
+    stroke-linejoin: miter;
+    stroke-linecap: square;
+    stroke-miterlimit: 3;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 800;
+    animation: dash 6s linear forwards infinite;
+}
+
+@keyframes dash {
+    0% {
+        stroke-dashoffset: 800;
+    }
+    100% {
+        stroke-dashoffset: 0;
+    }
 }

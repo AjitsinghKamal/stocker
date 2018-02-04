@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
+import * as moment from 'moment';
 import { Sparklines, SparklinesLine, SparklinesSpots } from 'react-sparklines';
 
 class Card extends Component {
+	reveal = false;
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -27,6 +29,10 @@ class Card extends Component {
 		}
 	}
 
+	componentDidMount() {
+		this.reveal = true;
+	}
+
 	establishCurrentStatus(newValue, currentValue) {
 		if (newValue < currentValue) {
 			return -1;
@@ -40,7 +46,7 @@ class Card extends Component {
 	render() {
 		const { value, time, status } = this.props.detail;
 		return (
-			<Frame>
+			<Frame style={{opacity: (this.reveal)? '1' : '0' }}>
 				<Title color={status}>{this.props.name}</Title>
 				<Sparkcontainer>
 					<Sparklines data={this.state.spark} limit={10}>
@@ -50,7 +56,7 @@ class Card extends Component {
 				</Sparkcontainer>
 				<Foot>
 					<Sub>{value.toFixed(3)}</Sub>
-					<Sub><SubText2>Last Updated :</SubText2> <SubText2>{time}</SubText2></Sub>
+					<Sub><SubText2>Last Updated :</SubText2> <SubText2>{moment(time).format("ddd, h:mm")}</SubText2></Sub>
 				</Foot>
 			</Frame>
 		);

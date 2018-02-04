@@ -21,7 +21,8 @@ const status = (state = {connecting: false, closed: true}, actions) => {
 			});
 		case CONNECTION_OPEN:
 			return Object.assign({}, state, {
-				closed: false
+				closed: false,
+				connecting: false
 			});
 		default:
 			return state;

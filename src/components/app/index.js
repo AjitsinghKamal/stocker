@@ -2,28 +2,35 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import Card from '../card';
 import Header from '../header';
+import Loader from '../loader';
+import Footer from '../footer';
 import {connect} from 'react-redux';
 
 class App extends Component {
-	stocksAvailable = null;
 	constructor(props) {
 		super(props);
 	}
 
-	componentWillReceiveProps() {
-		this.stocksAvailable = this.props.available.map((stock,index) => (
-			<Card key={index} detail={this.props.stocksList[stock]} name={stock}/>
-		))
+	makeLobby() {
+		if (this.props.loading) {
+			return <Loader />
+		} else {
+			return this.props.available.map((stock,index) => (
+				<Card key={index} detail={this.props.stocksList[stock]} name={stock}/>
+			));
+		}
 	}
 
 
 	render() {
+		const lobby = this.makeLobby();
 		return (
 			<Host>
 				<Header />
 				<Lobby>
-					{this.stocksAvailable}
+					{lobby}
 				</Lobby>
+				<Footer />
 			</Host>
 		);
 	}
@@ -32,7 +39,8 @@ class App extends Component {
 const mapStateToProps = (state) => {
 	return {
 		stocksList: state.stocks,
-		available: state.stocks.stockMap
+		available: state.stocks.stockMap,
+		loading: state.status.connecting
 	}
 }
 
@@ -40,7 +48,8 @@ const mapStateToProps = (state) => {
 // ======== styles ==========
 const Host = styled.div`
 	min-height: 100vh;
-	width: 100vw;
+	max-width: 1400px;
+    margin: 0 auto;
 `
 const Lobby = styled.main`
 	display: flex;
@@ -50,6 +59,7 @@ const Lobby = styled.main`
 	width: 100%;
 	height: 100%;
 	padding: 1.4rem 2rem;
+	min-height: calc(100vh - 200px);
 `
 
 
