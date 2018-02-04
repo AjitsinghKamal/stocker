@@ -13,13 +13,12 @@ class App extends Component {
 	}
 
 	makeLobby() {
-		if (this.props.notConnected) {
-			return <Loader />
+		if (this.props.notConnected && this.props.available.length < 6) {
+			return <Loader text={(this.props.notConnected)? 'Loading': 'Waiting for sufficient data to show'} />
 		} else {
 			return this.props.available.map((stock,index) => (
 				<Card key={index} detail={this.props.stocksList[stock]} name={stock}/>
 			));
-			this.props.listPrepared();
 		}
 	}
 
@@ -42,7 +41,7 @@ const mapStateToProps = (state) => {
 	return {
 		stocksList: state.stocks,
 		available: state.stocks.stockMap,
-		notConnected: state.status.closed
+		notConnected: state.status.connecting
 	}
 }
 

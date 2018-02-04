@@ -23,24 +23,33 @@ const WS_URL = 'ws://stocks.mnet.website';
  * @param {string} url 
  */
 const configureSocket = ({ dispatch }, url) => {
+	try {
+		socket = new WebSocket(WS_URL);
+	
+		socket.onopen = () => {
+			console.log('readyState now OPEN');
+			return dispatch(openConnection());
+		}
+		socket.onclose = (event) => {
+			console.log('readyState now OPEN');
+			return dispatch(closeConnection());
+		}
+		socket.onmessage = (event) => {
+			console.log('readyState now OPEN -- getting message');
+			const data = JSON.parse(event.data);
+			data.forEach(item => {
+				dispatch(listen(item[0],item[1],Date.now()));
+			});
+		}
 
-	socket = new WebSocket(WS_URL);
+		socket.onerror = (event) => {
+			console.log('error occured');
+			return dispatch(closeConnection());
+		}
+	} catch(error) {
+		console.error(error);
+	}
 
-	socket.onopen = () => {
-		console.log('readyState now OPEN');
-		return dispatch(openConnection());
-	}
-	socket.onclose = (event) => {
-		console.log('readyState now OPEN');
-		return dispatch(closeConnection());
-	}
-	socket.onmessage = (event) => {
-		console.log('readyState now OPEN -- getting message');
-		const data = JSON.parse(event.data);
-		data.forEach(item => {
-			dispatch(listen(item[0],item[1],Date.now()));
-		});
-	}
 }
 
 /**
