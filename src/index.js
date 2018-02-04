@@ -13,7 +13,8 @@ import './index.css';
 const store = createStore(
 	appReducer,
 	applyMiddleware(
-		socketMiddleware
+		socketMiddleware,
+		logger
 	)
 )
 

@@ -4,7 +4,7 @@ import {
 	MESSAGE,
 	CONNECTION_OPEN,
 	CONNECTION_CLOSE,
-	MAP_RESPONSE
+	CONNECTED
  } from '../actions';
 
 import { combineReducers } from 'redux';
@@ -21,9 +21,10 @@ const status = (state = {connecting: false, closed: true}, actions) => {
 			});
 		case CONNECTION_OPEN:
 			return Object.assign({}, state, {
-				closed: false,
-				connecting: false
+				closed: false
 			});
+		case CONNECTED:
+			return Object.assign({}, state, {connecting: false})
 		default:
 			return state;
 	}

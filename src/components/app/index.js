@@ -5,6 +5,7 @@ import Header from '../header';
 import Loader from '../loader';
 import Footer from '../footer';
 import {connect} from 'react-redux';
+import { connectionDone } from '../../actions';
 
 class App extends Component {
 	constructor(props) {
@@ -12,12 +13,13 @@ class App extends Component {
 	}
 
 	makeLobby() {
-		if (this.props.loading) {
+		if (this.props.notConnected) {
 			return <Loader />
 		} else {
 			return this.props.available.map((stock,index) => (
 				<Card key={index} detail={this.props.stocksList[stock]} name={stock}/>
 			));
+			this.props.listPrepared();
 		}
 	}
 
@@ -40,7 +42,15 @@ const mapStateToProps = (state) => {
 	return {
 		stocksList: state.stocks,
 		available: state.stocks.stockMap,
-		loading: state.status.connecting
+		notConnected: state.status.closed
+	}
+}
+
+const mapDispatchToProps = dispatch => {
+	return {
+		listPrepared: () => (
+			dispatch(connectionDone())
+		)
 	}
 }
 

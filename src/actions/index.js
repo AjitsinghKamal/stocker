@@ -38,8 +38,7 @@ export const listen = (name, value, time) => ({
 	time
 });
 
-export const MAP_RESPONSE = 'MAP_RESPONSE';
-export const mapData = (data) => ({
-	type: MAP_RESPONSE,
-	data
+export const CONNECTED = 'CONNECTED';
+export const connectionDone = (data) => ({
+	type: CONNECTED
 })

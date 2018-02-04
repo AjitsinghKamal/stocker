@@ -8,6 +8,8 @@ import App from './app';
 /**
  * Router config component
  * bridge between the store and the entire app
+ * NOTE: routing was not needed 
+ * just experimenting
  * @param {PropObject} 
  */
 const Root = ({store}) => (
